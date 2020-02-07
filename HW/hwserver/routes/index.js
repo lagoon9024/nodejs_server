@@ -1,11 +1,11 @@
 const express= require('express');
-const router= express.Router();
+const app = express();
 
-const controller= require('./datacontroller');
-const device = require('./devicecontroller');
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
 
-router.get('/data',controller.selectAll);
+app.use('/log', require('./logupdate/logupdate.js'));
+app.use('/timeset', require('./timeset/timeset.js'));
 
-router.post('/device', device.setcron);
-
-module.exports=router;
+module.exports=app;
