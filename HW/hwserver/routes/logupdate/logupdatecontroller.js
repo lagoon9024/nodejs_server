@@ -27,7 +27,8 @@ const selectAll = function (req, res) {
         if(rows.length){
             updatevar(rows);
         }
-        if(req && rows.length) res.json("udpate "+ rows.length +" data");
+        if(req && rows.length) res.json("update "+ rows.length +" data");
+        else if(req) res.json("nothing to update");
     });  
 };
 

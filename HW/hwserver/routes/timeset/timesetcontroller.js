@@ -4,7 +4,6 @@ const localmapper = require('mybatis-mapper');
 const localconn = require('../../config/local_db.js');
 const localcon = mysql.createConnection(localconn);
 
-
 let format = {language: 'sql', indent: ' '};
 
 var timetable={
@@ -27,9 +26,9 @@ const updateTable = function(req,res){
             let query = localmapper.getStatement('local_timetable', 'updatetimetable', timetable, format);
             localcon.query(query, function(err, vars){
                 if(err) throw err;
+                console.log("UPDATE TIMETABLE :: "+ timetable._time+" DATA UPDATED");
             })
         }
-        console.log("UPDATE TIMETABLE :: "+ req.body.length+" DATA UPDATED");
         res.json("DEVICE 1 TIME TABlE :: " + req.body.length+" DATA UPDATED");
     }
 }

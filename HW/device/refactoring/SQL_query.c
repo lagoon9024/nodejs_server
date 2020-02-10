@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 #include <mysql/mysql.h>
 
 MYSQL* connectsql(char* host, char* user, char* pass, char* dbname){
@@ -25,19 +26,16 @@ void error(MYSQL *conn){
 	mysql_close(conn);
 }
 
-MYSQL_RES* get_timetable(MYSQL *conn){
+MYSQL_ROW get_field(MYSQL *conn){	
+	char tbuf[1024];
+	time_t restime=time(NULL);
+	sprintf(tbuf, "%d:%d:00", localtime(&restime)->tm_hour, localtime(&restime)->tm_min);
 	mysql_query(conn, "select * from local_timetable");
 	MYSQL_RES *result = mysql_store_result(conn);
-	return result;
-}
-
-MYSQL_ROW get_field(MYSQL_RES *result, MYSQL *conn, char* tbuf){
 	if (result == NULL) error(conn);
-	int fields = mysql_num_fields(result);
 	MYSQL_ROW row;
-	for(int i=0; i<fields; ++i){
-		row = mysql_fetch_row(result);
-		if(strcmp(row[0],tbuf)==0) break;
+	while((row = mysql_fetch_row(result))){
+		if(strcmp(row[0],tbuf)==0) return row;
 	}
 	return row;
 }
