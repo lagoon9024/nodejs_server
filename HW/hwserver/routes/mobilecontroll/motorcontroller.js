@@ -6,9 +6,9 @@ const immediatefeed = async function(req,res,next){
     if (req.body.motor == "on") {
         //C motor code on
         var feedingamount=req.body.rotat;
-        var rotation = feedingamount/50;
+        var rotation = feedingamount;
         console.log("AWS send "+rotation);
-        var executecommand = '/home/pi/project/s02p12a103/HW/device/refactoring/main_device '+rotation;
+        var executecommand = '/home/pi/s02p13a103/HW/device/refactoring/main_device '+rotation;
         await exec(executecommand, function (err,stdout,stderr){
                 if(err) throw err;
                 res.json(feedingamount + "feeded");
