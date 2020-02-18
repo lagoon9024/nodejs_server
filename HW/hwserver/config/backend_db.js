@@ -1,8 +1,8 @@
 module.exports = {
-    host     : '52.78.235.226',
-    user     : 'root',
-    password : 'ssafy',
-    port     : 3306,
-    database : 'Service_DB',
+    host     : 'hostname',
+    user     : 'userid',
+    password : 'pwd',
+    port     : 'default 3306',
+    database : 'dbname',
     dateStrings: 'date'
 };
